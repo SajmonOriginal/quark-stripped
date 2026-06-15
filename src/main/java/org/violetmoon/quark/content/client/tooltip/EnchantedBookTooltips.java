@@ -54,7 +54,7 @@ public class EnchantedBookTooltips {
 			return;
 
 		ItemStack stack = event.getItemStack();
-		if(stack.getItem() == Items.ENCHANTED_BOOK) {
+		if(stack.has(DataComponents.STORED_ENCHANTMENTS)) {
 			List<Either<FormattedText, TooltipComponent>> tooltip = event.getTooltipElements();
 			int tooltipIndex = 0;
 

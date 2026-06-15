@@ -1395,6 +1395,7 @@
 	"effect.quark.resilience": "Resilience",
 
 	"entity.quark.pickarang": "Pickarang",
+	"entity.quark.torch_arrow": "Torch Arrow",
 	"entity.quark.glass_frame": "Glass Item Frame",
 	"entity.quark.dyed_item_frame": "Dyed Item Frame",
 	"entity.quark.totem": "Totem of Holding",

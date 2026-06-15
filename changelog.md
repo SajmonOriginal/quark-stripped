@@ -1,35 +1,21 @@
-# Quark 4.1-477 For Neoforge 1.21.1
+# Quark 4.1-481 For Neoforge 1.21.1
 
-Lots of fixes and a couple of other changes to improve the out-of-the-box experience.
-I am aware of many other issues but haven't had any luck fixing them. For now, I recommend:
-  - Be especially careful (make world backups) when using the Trowel, putting nontypical blocks in your hotbar with it can cause player data loss
-  - Don't leave items in the Matrix Enchanting Table
-  - Don't use NeoContinuity with Quark as it seems to cause inexplicable startup crashes
+# Fixes
+- Fixed #5572: Foxhound Faces are swapped from its tamed variant
+- Fixed #5577: Undead Mobs do not have Undead Properties 
+- Fixed #5579: Chains should be detected differently
+- Fixed #5582: You can place things you shouldn't with scaffolding replacement
+- Fixed #5584: (1.21.1) "Pat the dogs" config options don't work for most modded entities
 
-## Fixes
-- Fix #5215: Leaving "Back" key unbound causes all unknown keys to trigger it.
-- Fix #5495: Golden Pickaxe is broken
-- Fix #5496: Blocks & items are not compostable
-- Fix #5500: Variant chests still visible in recipes even when turned off.
-- Fix #5503: Attribute Icons
-- Fix #5504: Disabling Utility Recipes deletes recipes for stone tools
-- Fix #5507: Potential incorrect tagging on framed glass blocks
-- Fix #5515: [Bug] Opened shulker box disappears after Quark inventory sort
-- Fix #5516: 1.21.1 tater loses name when broken
-- Fix #5517: Seed pouches are irretrievable from Create's Stock Keeper
-- Fix #5520: [1.21.1] Matrix enchanting table fails to load data
+# Changes
+- Replace Scaffolding now works with modded scaffold blocks (i.e. Create's Copper Scaffolding). 
+  - Placing multiple different types of scaffolding blocks in a pillar and trying to replace any scaffolds will only replace the type of scaffolding that was right-clicked.
+- Multi-block blocks like doors can no longer replace scaffolding
+- Wood Posts will now connect to Hedges immediately above them
+- Chains Connect Blocks now works with modded chains
+- Tamed Foxhounds now have a maximum health of 30. This is to give them a slight disadvantage to normal wolves
 
-## Changes
-- Variant Chests, Variant Bookshelves, and Variant Ladders modules now have anti-overlap with Carved Wood and will disable themselves if that mod is installed
-- Updated Simplified Chinese translation (qznfbnj)
-- Updated Japanese translation (Abbage230)
-- Updated Russian translation (AstardGrimoire)
-- Updated German translation (GulutGames)
-- Updated various translation files using unused Twitter and Reddit translation keys, replaced with Forum and Bluesky keys.
-
-## Additions
-- Added a system to add tags to items/blocks depending on config via *additional* datapacks. Unfortunately this is a kind of band-aid fix that doesn't solve the root issue of there being no way to conditionally add items to tags. 
-    - Added Conditional Tag datapacks for: Variant Chests, Variant Bookshelves, and Framed Glass
-    - This system does not account for multi-condition items, for example, Ashen Chests will still be in the `c:chests` tag if Variant Chests is enabled but Ancient Wood is not
-    - More tag contents may be moved to additional conditional datapacks as needed for future updates. We recommend that modpack makers check if disabled content being in present tags creates issues (and removing said items from the tag with CraftTweaker or similar) instead of relying on the config.
-    - This will end up bloating the `/datapack list` command, but that's a small price to pay to fix certain essential tags containing disabled content.
+# Additions
+- Rotation Lock now works with Replace Scaffolding; blocks will be replaced according to your rotation lock
+- Added a `quark:cannot_replace_scaffolding` block tag for blocks that shouldn't replace scaffolding
+- Added the `quark:pathfinders_quill` loot function, which sets items to 

@@ -92,6 +92,10 @@ public class PatTheDogsModule extends ZetaModule {
 					!pettableDenylist.contains(living.getEncodeId())) {
 				SoundEvent sound = null;
 				float pitchCenter = 1f;
+
+				boolean petAllFlag = false;
+				boolean petAllowedButNoSoundDesignatedFlag = false;
+
 				if(living instanceof Axolotl) {
 					sound = SoundEvents.AXOLOTL_SPLASH;
 				} else if(living instanceof Cat || living instanceof Ocelot) {
@@ -128,24 +132,40 @@ public class PatTheDogsModule extends ZetaModule {
 					case "a2ce9382-2518-4752-87b2-c6a5c97f173e" -> // petra_the_kat
 						QuarkSounds.PET_DEVICE;
 					case "29a10dc6-a201-4993-80d8-c847212bc92b", // MacyMacerator
-							"d30d8e38-6f93-4d96-968d-dd6ec5596941" -> // Falkory220
+							"d30d8e38-6f93-4d96-968d-dd6ec5596941", // Falkory220
+							"23a6dcbe-b222-4ddc-815b-9ebff5076530" -> //Partonetrain
 						QuarkSounds.PET_NEKO;
 					case "d475af59-d73c-42be-90ed-f1a78f10d452" -> // DaniCherryJam
 						QuarkSounds.PET_SLIME;
 					case "458391f5-6303-4649-b416-e4c0d18f837a" -> // yrsegal
 						QuarkSounds.PET_WIRE;
-					default -> null;
+					default -> pettableAllowlist.contains(living.getEncodeId()) ? SoundEvents.PLAYER_BREATH : null;
+					//#5538: if players are explicitly allowed in the config and the player isn't one of the players specified in the switch above, play a default sound
 					};
 				}
-				if(sound != null) {
+				else if(petAllMobs && !pettableDenylist.contains(living.getEncodeId())){
+					//#5584: if pet all mobs is enabled, pet any mob that isn't in the deny list
+					petAllFlag = true;
+				}
+				else if(sound == null && pettableAllowlist.contains(living.getEncodeId())){
+					//#5584: if mob is specifically allowed but doesn't match one of the types above
+					petAllowedButNoSoundDesignatedFlag = true;
+				}
+
+
+				if(sound != null || petAllFlag || petAllowedButNoSoundDesignatedFlag) {
 					if(event.getHand() == InteractionHand.MAIN_HAND) {
 						if(player.level() instanceof ServerLevel serverLevel) {
 							var pos = living.getEyePosition();
 							serverLevel.sendParticles(ParticleTypes.HEART, pos.x, pos.y + 0.5, pos.z, 1, 0, 0, 0, 0.1);
 
-							living.playSound(sound, 1F, pitchCenter + (float) (Math.random() - 0.5) * 0.5F);
-						} else
+							if(sound != null){
+								living.playSound(sound, 1F, pitchCenter + (float) (Math.random() - 0.5) * 0.5F);
+							}
+						}
+						else {
 							player.swing(InteractionHand.MAIN_HAND);
+						}
 					}
 
 					event.setCanceled(true);
