@@ -5,8 +5,8 @@ on:
     branches: [master]
   workflow_dispatch:
     inputs:
-      release:
-        description: "Publish as release (Maven /releases + GitHub Release)"
+      snapshot:
+        description: "Publish as SNAPSHOT only (no GitHub Release)"
         type: boolean
         default: false
 
@@ -32,13 +32,13 @@ jobs:
 
       - name: Build and publish to Maven
         env:
-          RELEASE_MODE: ${{ inputs.release && 'true' || 'false' }}
+          RELEASE_MODE: ${{ inputs.snapshot && 'false' || 'true' }}
           MAVEN_USERNAME: ${{ secrets.MAVEN_USERNAME }}
           MAVEN_TOKEN: ${{ secrets.MAVEN_TOKEN }}
         run: ./gradlew build publishMavenJavaPublicationToSajmonRepository --no-daemon
 
       - name: Read version
-        if: ${{ inputs.release }}
+        if: ${{ !inputs.snapshot }}
         id: ver
         run: |
           VERSION=$(awk -F '=' '/^version/ { print $2; }' build.properties)
@@ -50,7 +50,7 @@ jobs:
           echo "title=${NAME} ${VERSION}-${BUILD} (MC ${MC})" >> "$GITHUB_OUTPUT"
 
       - name: Create GitHub Release
-        if: ${{ inputs.release }}
+        if: ${{ !inputs.snapshot }}
         uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ steps.ver.outputs.tag }}

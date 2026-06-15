@@ -21,7 +21,7 @@ ext.config = parseConfig(configFile)
 ext.deps = parseConfig(depsFile)
 
 version = "${config.version}-${config.build_number}"
-group = "org.violetmoon.${config.mod_id}" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
+group = "cz.sajmonoriginal"
 base.archivesName = config.mod_name
 
 compileJava.options.compilerArgs << "-Xlint:all,-classfile,-processing,-deprecation"
@@ -353,7 +353,7 @@ publishing {
     publications {
         mavenJava(MavenPublication) {
             groupId project.group
-            artifactId project.archivesBaseName
+            artifactId "quark-stripped"
             version project.version
             from components.java
 
@@ -365,7 +365,6 @@ publishing {
                 }
             }
             
-            artifact pureJar //doesn't contain jar-in-jars
             artifact sourcesJar
         }
     }
