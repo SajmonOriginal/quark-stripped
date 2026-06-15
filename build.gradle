@@ -371,10 +371,27 @@ publishing {
     }
 
     repositories {
-        maven {
-            url "file://" + System.getenv("local_maven")
+        if (System.getenv("local_maven")) {
+            maven {
+                name = "local"
+                url = "file://" + System.getenv("local_maven")
+            }
         }
 
+        def sajmonUser = System.getenv("MAVEN_USERNAME") ?: project.findProperty("sajmonMavenUsername")
+        def sajmonToken = System.getenv("MAVEN_TOKEN") ?: project.findProperty("sajmonMavenToken")
+        if (sajmonUser && sajmonToken) {
+            maven {
+                name = "sajmon"
+                url = version.toString().endsWith("-SNAPSHOT")
+                        ? "https://maven.sajmon.gg/snapshots"
+                        : "https://maven.sajmon.gg/releases"
+                credentials {
+                    username = sajmonUser
+                    password = sajmonToken
+                }
+            }
+        }
     }
 }
 
