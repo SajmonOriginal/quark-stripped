@@ -1,4 +1,4 @@
-name: Publish to Sajmons Maven
+name: Publish
 
 on:
   push:
@@ -6,9 +6,12 @@ on:
   workflow_dispatch:
     inputs:
       release:
-        description: "Publish as release (otherwise SNAPSHOT)"
+        description: "Publish as release (Maven /releases + GitHub Release)"
         type: boolean
         default: false
+
+permissions:
+  contents: write
 
 jobs:
   publish:
@@ -27,9 +30,31 @@ jobs:
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v4
 
-      - name: Build and publish
+      - name: Build and publish to Maven
         env:
           RELEASE_MODE: ${{ inputs.release && 'true' || 'false' }}
           MAVEN_USERNAME: ${{ secrets.MAVEN_USERNAME }}
           MAVEN_TOKEN: ${{ secrets.MAVEN_TOKEN }}
         run: ./gradlew build publishMavenJavaPublicationToSajmonRepository --no-daemon
+
+      - name: Read version
+        if: ${{ inputs.release }}
+        id: ver
+        run: |
+          VERSION=$(awk -F '=' '/^version/ { print $2; }' build.properties)
+          BUILD=$(awk -F '=' '/^build_number/ { print $2; }' build.properties)
+          MC=$(awk -F '=' '/^mc_version/ { print $2; }' build.properties)
+          NAME=$(awk -F '=' '/^mod_name/ { print $2; }' build.properties)
+          TAG="v${VERSION}-${BUILD}"
+          echo "tag=${TAG}" >> "$GITHUB_OUTPUT"
+          echo "title=${NAME} ${VERSION}-${BUILD} (MC ${MC})" >> "$GITHUB_OUTPUT"
+
+      - name: Create GitHub Release
+        if: ${{ inputs.release }}
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.ver.outputs.tag }}
+          name: ${{ steps.ver.outputs.title }}
+          generate_release_notes: true
+          files: |
+            build/libs/*.jar
