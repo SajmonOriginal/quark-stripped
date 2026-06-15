@@ -3,7 +3,6 @@ package org.violetmoon.quark.content.tweaks.module;
 import java.util.List;
 
 import org.violetmoon.quark.base.handler.QuarkSounds;
-import org.violetmoon.quark.content.mobs.entity.Foxhound;
 import org.violetmoon.quark.content.tweaks.ai.NuzzleGoal;
 import org.violetmoon.quark.content.tweaks.ai.WantLoveGoal;
 import org.violetmoon.zeta.config.Config;
@@ -85,9 +84,6 @@ public class PatTheDogsModule extends ZetaModule {
 						player.swing(InteractionHand.MAIN_HAND);
 
 					WantLoveGoal.setPetTime(wolf);
-
-					if(wolf instanceof Foxhound && !player.isInWater() && !player.hasEffect(MobEffects.FIRE_RESISTANCE) && !player.getAbilities().invulnerable)
-						player.igniteForSeconds(5);
 				}
 
 				event.setCanceled(true);

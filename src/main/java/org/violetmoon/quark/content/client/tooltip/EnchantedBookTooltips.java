@@ -30,8 +30,6 @@ import org.jetbrains.annotations.NotNull;
 import org.violetmoon.quark.base.Quark;
 import org.violetmoon.quark.base.components.QuarkDataComponents;
 import org.violetmoon.quark.content.client.module.ImprovedTooltipsModule;
-import org.violetmoon.quark.content.tools.item.AncientTomeItem;
-import org.violetmoon.quark.content.tools.module.AncientTomesModule;
 import org.violetmoon.zeta.client.event.play.ZGatherTooltipComponents;
 import org.violetmoon.zeta.module.IDisableable;
 
@@ -56,17 +54,13 @@ public class EnchantedBookTooltips {
 			return;
 
 		ItemStack stack = event.getItemStack();
-		if(stack.getItem() == Items.ENCHANTED_BOOK || stack.getItem() == AncientTomesModule.ancient_tome) {
+		if(stack.getItem() == Items.ENCHANTED_BOOK) {
 			List<Either<FormattedText, TooltipComponent>> tooltip = event.getTooltipElements();
 			int tooltipIndex = 0;
 
 			List<EnchantmentInstance> enchants = getEnchantedBookEnchantments(stack);
 			for(EnchantmentInstance ed : enchants) {
-				Component match;
-				if(stack.getItem() == Items.ENCHANTED_BOOK)
-					match = Enchantment.getFullname(ed.enchantment, ed.level);
-				else
-					match = AncientTomeItem.getFullTooltipText(ed.enchantment);
+				Component match = Enchantment.getFullname(ed.enchantment, ed.level);
 
 				for(; tooltipIndex < tooltip.size(); tooltipIndex++) {
 					Either<FormattedText, TooltipComponent> elmAt = tooltip.get(tooltipIndex);

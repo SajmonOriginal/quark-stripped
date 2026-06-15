@@ -12,7 +12,6 @@ import net.minecraft.world.level.block.CampfireBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 
-import org.violetmoon.quark.content.building.module.GrateModule;
 import org.violetmoon.zeta.config.Config;
 import org.violetmoon.zeta.event.bus.PlayEvent;
 import org.violetmoon.zeta.event.play.entity.player.ZPlayerTick;
@@ -44,7 +43,7 @@ public class CampfiresBoostElytraModule extends ZetaModule {
 				Level world = player.level();
 
 				int moves = 0;
-				while((world.isEmptyBlock(pos) || world.getBlockState(pos).getBlock().equals(GrateModule.grate)) && world.isInWorldBounds(pos) && moves < 20) {
+				while(world.isEmptyBlock(pos) && world.isInWorldBounds(pos) && moves < 20) {
 					pos = pos.below();
 					moves++;
 				}

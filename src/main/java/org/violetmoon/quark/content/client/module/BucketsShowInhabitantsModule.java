@@ -19,10 +19,6 @@ import org.jetbrains.annotations.Nullable;
 
 import org.violetmoon.quark.base.Quark;
 import org.violetmoon.quark.base.QuarkClient;
-import org.violetmoon.quark.base.components.QuarkDataComponents;
-import org.violetmoon.quark.content.mobs.entity.Crab;
-import org.violetmoon.quark.content.mobs.module.CrabsModule;
-import org.violetmoon.quark.content.tools.module.SlimeInABucketModule;
 import org.violetmoon.zeta.client.event.load.ZAddItemColorHandlers;
 import org.violetmoon.zeta.client.event.load.ZClientSetup;
 import org.violetmoon.zeta.config.Config;
@@ -30,7 +26,6 @@ import org.violetmoon.zeta.event.bus.LoadEvent;
 import org.violetmoon.zeta.module.ZetaLoadModule;
 import org.violetmoon.zeta.module.ZetaModule;
 
-import java.util.UUID;
 import java.util.function.BooleanSupplier;
 import java.util.function.IntUnaryOperator;
 
@@ -54,11 +49,6 @@ public class BucketsShowInhabitantsModule extends ZetaModule {
 			e.enqueueWork(() -> {
 				ItemProperties.register(Items.AXOLOTL_BUCKET, Quark.asResource("variant"),
 						new MobBucketVariantProperty(Axolotl.Variant.values().length, () -> showAxolotls));
-				ItemProperties.register(CrabsModule.crab_bucket, Quark.asResource("variant"),
-						new MobBucketVariantProperty(Crab.COLORS, () -> showCrabs));
-
-				ItemProperties.register(SlimeInABucketModule.slime_in_a_bucket, Quark.asResource("shiny"),
-						new ShinyMobBucketProperty(() -> showShinySlime && VariantAnimalTexturesModule.staticEnabled && VariantAnimalTexturesModule.enableShinySlime));
 
 				ItemProperties.register(Items.TROPICAL_FISH_BUCKET, Quark.asResource("base"),
 						new TropicalFishBucketVariantProperty((b) -> TropicalFish.getBaseColor(b).getId(), () -> showTropicalFish));
@@ -89,32 +79,6 @@ public class BucketsShowInhabitantsModule extends ZetaModule {
 					return 0;
 
 				return stack.get(DataComponents.BUCKET_ENTITY_DATA).copyTag().getInt(Axolotl.VARIANT_TAG) % maxVariants;
-			}
-		}
-
-		private class ShinyMobBucketProperty implements ItemPropertyFunction {
-
-			private final BooleanSupplier featureEnabled;
-
-			public ShinyMobBucketProperty(BooleanSupplier featureEnabled) {
-				this.featureEnabled = featureEnabled;
-			}
-
-			@Override
-			public float call(@NotNull ItemStack stack, @Nullable ClientLevel level, @Nullable LivingEntity entity, int id) {
-				if(!isEnabled() || !featureEnabled.getAsBoolean() || ( !stack.has(DataComponents.BUCKET_ENTITY_DATA) && !stack.has(QuarkDataComponents.SLIME_NBT)))
-					return 0;
-
-				CompoundTag data;
-                if (stack.has(DataComponents.BUCKET_ENTITY_DATA)) data = stack.get(DataComponents.BUCKET_ENTITY_DATA).copyTag();
-                else data = stack.get(QuarkDataComponents.SLIME_NBT).copyTag();
-				if(data != null && data.hasUUID("UUID")) {
-					UUID uuid = data.getUUID("UUID");
-					if(VariantAnimalTexturesModule.Client.isShiny(uuid))
-						return 1;
-				}
-
-				return 0;
 			}
 		}
 

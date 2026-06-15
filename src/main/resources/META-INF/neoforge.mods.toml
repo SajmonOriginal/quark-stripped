@@ -5,10 +5,10 @@ license="https://github.com/VazkiiMods/Quark/blob/master/LICENSE.md"
 
 [[mods]]
 modId="quark"
-displayName="Quark"
+displayName="Quark Stripped"
 version="${file.jarVersion}"
-authors="Vazkii, WireSegal, MCVinnyq, Sully"
-description='''Small things, improving Minecraft bit by bit.'''
+authors="Vazkii, WireSegal, MCVinnyq, Sully (stripped fork)"
+description='''Small things, improving Minecraft bit by bit. This is a stripped fork of the original Quark by Vazkii. Some features have been removed to create a lighter build. Licensed under CC BY-NC-SA 3.0.'''
 
 [[mixins]]
 config="quark.mixins.json"

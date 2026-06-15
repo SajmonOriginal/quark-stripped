@@ -20,8 +20,6 @@ import net.minecraft.world.item.enchantment.Enchantments;
 import net.neoforged.neoforge.common.ItemAbilities;
 import net.neoforged.neoforge.common.ItemAbility;
 import net.neoforged.neoforge.common.NeoForge;
-import org.violetmoon.quark.addons.oddities.inventory.BackpackContainer;
-import org.violetmoon.quark.addons.oddities.module.BackpackModule;
 import org.violetmoon.quark.api.event.GatherToolClassesEvent;
 import org.violetmoon.quark.base.Quark;
 import org.violetmoon.zeta.config.Config;
@@ -168,15 +166,7 @@ public class AutomaticToolRestockModule extends ZetaModule {
 
 				int lower = hotbar ? 0 : 9;
 				int upper = player.getInventory().items.size();
-				boolean foundInInv = crawlInventory(player.getInventory(), lower, upper, ctx);
-
-				if(!foundInInv && Quark.ZETA.modules.isEnabled(BackpackModule.class)) {
-					ItemStack backpack = player.getInventory().armor.get(2);
-					if(backpack.getItem() == BackpackModule.backpack) {
-						Container container = new BackpackContainer(backpack);
-						crawlInventory(container, 0, container.getContainerSize(), ctx);
-					}
-				}
+				crawlInventory(player.getInventory(), lower, upper, ctx);
 			}
 		}
 	}

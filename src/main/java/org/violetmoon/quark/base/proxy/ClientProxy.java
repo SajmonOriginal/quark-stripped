@@ -17,9 +17,7 @@ import org.violetmoon.quark.base.client.config.QButtonHandler;
 import org.violetmoon.quark.base.client.config.QuarkConfigHomeScreen;
 import org.violetmoon.quark.base.client.handler.ClientUtil;
 import org.violetmoon.quark.base.client.handler.InventoryButtonHandler;
-import org.violetmoon.quark.base.client.handler.ModelHandler;
 import org.violetmoon.quark.base.handler.ContributorRewardHandler;
-import org.violetmoon.quark.base.handler.WoodSetHandler;
 import org.violetmoon.quark.catnip.animation.AnimationTickHolder;
 import org.violetmoon.quark.mixin.mixins.client.accessor.AccessorMultiPlayerGameMode;
 
@@ -39,9 +37,7 @@ public class ClientProxy extends CommonProxy {
 			jingleBellsMotherfucker = true;
 
 		Quark.ZETA.loadBus
-				.subscribe(ModelHandler.class) //TODO: Make this especially not a singleton, move it into respective modules
 				.subscribe(ContributorRewardHandler.Client.class)
-				.subscribe(WoodSetHandler.Client.class)
 				.subscribe(ClientUtil.class);
 		
 		Quark.ZETA.playBus

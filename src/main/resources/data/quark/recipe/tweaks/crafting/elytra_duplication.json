@@ -1,9 +1,0 @@
-{
-  "type": "quark:elytra_duplication",
-  "neoforge:conditions": [
-    {
-      "type": "zeta:flag",
-      "flag": "dragon_scales"
-    }
-  ]
-} 

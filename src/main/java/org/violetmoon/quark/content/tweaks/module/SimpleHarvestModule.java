@@ -292,22 +292,13 @@ public class SimpleHarvestModule extends ZetaModule {
 			return false;
 
 		ItemStack inHand = player.getItemInHand(hand);
-		boolean isHoe = HoeHarvestingModule.isHoe(inHand);
 
-		if(!emptyHandHarvest && !isHoe)
+		if(!emptyHandHarvest)
 			return false;
 
 		BlockState stateAbove = level.getBlockState(pos.above());
 
-		//why do we only check this if using hoe?
-		if(isHoe) {
-			//Early check. Check action at the target block
-			if(getActionForBlock(stateAt, true) == ActionType.NONE &&
-					getActionForBlock(stateAbove, true) == ActionType.NONE)
-				return false;
-		}
-
-		int range = HoeHarvestingModule.getRange(inHand);
+		int range = 1;
 
 		boolean hasHarvested = false;
 
@@ -331,9 +322,6 @@ public class SimpleHarvestModule extends ZetaModule {
 		if(level.isClientSide) {
 			if(inHand.isEmpty())
 				PacketDistributor.sendToServer(new HarvestMessage(pos, hand));
-		} else {
-			if(harvestingCostsDurability && isHoe)
-				inHand.hurtAndBreak(1, player, Player.getSlotForHand(InteractionHand.MAIN_HAND));
 		}
 
 		return true;

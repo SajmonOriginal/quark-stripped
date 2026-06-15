@@ -15,7 +15,6 @@ import net.minecraft.world.inventory.Slot;
 import net.neoforged.neoforge.client.settings.KeyConflictContext;
 import net.neoforged.neoforge.client.settings.KeyModifier;
 import org.jetbrains.annotations.NotNull;
-import org.violetmoon.quark.addons.oddities.client.screen.BackpackInventoryScreen;
 import org.violetmoon.quark.api.IQuarkButtonAllowed;
 import org.violetmoon.quark.base.Quark;
 import org.violetmoon.quark.base.QuarkClient;
@@ -131,9 +130,6 @@ public final class InventoryButtonHandler {
 				if(slotPred.test(slot)) {
 					int x = slot.x + 6;
 					int y = slot.y - 13;
-
-					if(screen instanceof BackpackInventoryScreen)
-						y -= 60;
 
 					for(ButtonProviderHolder holder : holders) {
 						Button button = holder.getButton(screen, x, y);

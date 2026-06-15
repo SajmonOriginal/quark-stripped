@@ -5,10 +5,10 @@ license="https://github.com/Vazkii/Quark/blob/master/LICENSE.md"
 
 [[mods]]
 modId="quarkoddities"
-displayName="Quark Oddities"
+displayName="Quark Oddities (Stripped)"
 version="1.21.1"
-authors="Vazkii, WireSegal, MCVinnyq, Sully"
-description='''Crazier Small things.'''
+authors="Vazkii, WireSegal, MCVinnyq, Sully (stripped fork)"
+description='''Crazier Small things. This is part of the stripped Quark fork. Licensed under CC BY-NC-SA 3.0.'''
 
 [[dependencies.quarkoddities]]
 modId="quark"

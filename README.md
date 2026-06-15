@@ -1,7 +1,27 @@
-# Quark
+# Quark Stripped
+
+> **This is a stripped fork of [Quark](https://quarkmod.net) by [Vazkii](https://github.com/Vazkii).**  
+> Original work: [VazkiiMods/Quark](https://github.com/VazkiiMods/Quark)  
+> This modified version removes select features and dependencies to create a lighter build.
+
 Small things. Learn more at [the Mod's website](https://quarkmod.net).
 
-This mod makes use of the [Java Universal Tween Engine](https://github.com/AurelienRibon/universal-tween-engine) by Aurelien Ribon, licensed under the Apache 2.0 License.  
+This mod makes use of the [Java Universal Tween Engine](https://github.com/AurelienRibon/universal-tween-engine) by AurelienRibon, licensed under the Apache 2.0 License.
+
+## License
+
+This fork is distributed under the same license as the original Quark: **CC BY-NC-SA 3.0** (Attribution-NonCommercial-ShareAlike 3.0 Unported).
+
+- **Attribution** — Original Quark created by [Vazkii](https://github.com/Vazkii), WireSegal, MCVinnyq, Sully
+- **NonCommercial** — Free distribution only; no commercial use
+- **ShareAlike** — Any derivatives must use CC BY-NC-SA 3.0 or compatible
+- **Mark Changes** — This is a stripped/modified version; features have been removed compared to the original
+
+Full license text: [LICENSE.md](LICENSE.md) | https://creativecommons.org/licenses/by-nc-sa/3.0/
+
+## What Was Changed
+
+This is a **stripped build** of Quark. Compared to the original, some modules, integrations, or assets have been removed to reduce size or dependency count. The core gameplay features remain largely intact.
 
 ## Zeta?
 
@@ -20,6 +40,6 @@ Quark's release process is mostly automated. Here's the steps:
 6. Shortly after, the mod should be automatically uploaded to GitHub's release tab, Modrinth, and CurseForge.
 
 ## Signing
-Releases are signed with the Violet Moon signing key, see [this
+Original Quark releases are signed with the Violet Moon signing key, see [this
 page](https://github.com/VazkiiMods/.github/blob/main/security/README.md) for information
 about how to verify the artifacts.

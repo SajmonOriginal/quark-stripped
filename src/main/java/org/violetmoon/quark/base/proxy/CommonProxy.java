@@ -16,10 +16,8 @@ import org.violetmoon.quark.base.config.QuarkGeneralConfig;
 import org.violetmoon.quark.base.handler.ContributorRewardHandler;
 import org.violetmoon.quark.base.handler.QuarkRemapHandler;
 import org.violetmoon.quark.base.handler.QuarkSounds;
-import org.violetmoon.quark.base.handler.WoodSetHandler;
 import org.violetmoon.quark.base.network.QuarkNetwork;
 import org.violetmoon.quark.base.recipe.ExclusionRecipe;
-import org.violetmoon.quark.content.building.recipe.MixedExclusionRecipe;
 import org.violetmoon.zeta.event.bus.LoadEvent;
 import org.violetmoon.zeta.event.load.ZRegister;
 import org.violetmoon.zeta.module.ZetaCategory;
@@ -38,7 +36,6 @@ public class CommonProxy {
 		Quark.ZETA.loadBus
 				.subscribe(ContributorRewardHandler.class)
 				.subscribe(QuarkSounds.class)
-				.subscribe(WoodSetHandler.class)
 				.subscribe(QuarkDataComponents.class)
 				.subscribe(QuarkRemapHandler.class)
 				.subscribe(this);
@@ -53,16 +50,9 @@ public class CommonProxy {
 		// MODULES
 		Quark.ZETA.loadModules(
 				List.of(
-						new ZetaCategory("automation", Items.REDSTONE),
-						new ZetaCategory("building", Items.BRICKS),
 						new ZetaCategory("management", Items.CHEST),
-						new ZetaCategory("tools", Items.IRON_PICKAXE),
 						new ZetaCategory("tweaks", Items.NAUTILUS_SHELL),
-						new ZetaCategory("world", Items.GRASS_BLOCK),
-						new ZetaCategory("mobs", Items.PIG_SPAWN_EGG),
-						new ZetaCategory("client", Items.ENDER_EYE),
-						new ZetaCategory("experimental", Items.TNT),
-						new ZetaCategory("oddities", Items.CHORUS_FRUIT, Quark.ODDITIES_ID)
+						new ZetaCategory("client", Items.ENDER_EYE)
 				),
 				new ModFileScanDataModuleFinder(Quark.MOD_ID), //forge only
 				QuarkGeneralConfig.INSTANCE
@@ -77,7 +67,6 @@ public class CommonProxy {
 	@LoadEvent
 	public void recipe(ZRegister event) {
 		event.getRegistry().register(ExclusionRecipe.SERIALIZER, "exclusion", Registries.RECIPE_SERIALIZER);
-		event.getRegistry().register(MixedExclusionRecipe.SERIALIZER, "mixed_exclusion", Registries.RECIPE_SERIALIZER);
 	}
 
 	/**

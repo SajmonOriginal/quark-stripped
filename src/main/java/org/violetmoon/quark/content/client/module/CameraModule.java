@@ -22,7 +22,6 @@ import org.lwjgl.glfw.GLFW;
 import org.violetmoon.quark.base.Quark;
 import org.violetmoon.quark.base.QuarkClient;
 import org.violetmoon.quark.base.handler.QuarkSounds;
-import org.violetmoon.quark.content.experimental.module.OverlayShaderModule;
 import org.violetmoon.zeta.client.event.load.ZKeyMapping;
 import org.violetmoon.zeta.client.event.play.ZEarlyRender;
 import org.violetmoon.zeta.client.event.play.ZInput;
@@ -400,16 +399,6 @@ public class CameraModule extends ZetaModule {
 				if(shader != null) {
 					render.loadEffect(shader);
 					return;
-				}
-			} else {
-				OverlayShaderModule shaderModule = Quark.ZETA.modules.get(OverlayShaderModule.class);
-				if(shaderModule != null && shaderModule.isEnabled()) {
-					for(ResourceLocation l : SHADERS) {
-						if(l != null && l.getPath().contains(shaderModule.shader + ".json")) {
-							render.loadEffect(l);
-							return;
-						}
-					}
 				}
 			}
 

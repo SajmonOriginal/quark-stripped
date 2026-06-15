@@ -19,8 +19,6 @@ import net.minecraft.world.item.enchantment.ItemEnchantments;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import org.apache.commons.lang3.ArrayUtils;
-import org.violetmoon.quark.addons.oddities.inventory.BackpackMenu;
-import org.violetmoon.quark.addons.oddities.inventory.slot.CachedItemHandlerSlot;
 import org.violetmoon.quark.api.ICustomSorting;
 import org.violetmoon.quark.api.ISortingLockedSlots;
 import org.violetmoon.quark.api.QuarkCapabilities;
@@ -81,13 +79,12 @@ public final class SortingHandler {
 
 		AbstractContainerMenu c = player.containerMenu;
 		AbstractContainerMenu ogc = c;
-		boolean backpack = c instanceof BackpackMenu;
 		boolean sortingLocked = c instanceof ISortingLockedSlots;
 
-		if((!backpack && forcePlayer) || c == null)
+		if(forcePlayer || c == null)
 			c = player.inventoryMenu;
 
-		boolean playerContainer = c == player.inventoryMenu || backpack;
+		boolean playerContainer = c == player.inventoryMenu;
 		int[] lockedSlots = null;
 
 		if(sortingLocked) {
@@ -105,13 +102,6 @@ public final class SortingHandler {
 				break;
 			}
 		}
-
-		if(backpack)
-			for(Slot s : c.slots)
-				if(s instanceof CachedItemHandlerSlot cachedSlot) {
-					sortInventory(cachedSlot.container, lockedSlots);
-					break;
-				}
 	}
 
 	public static void sortInventory(Container container, int[] lockedSlots) {
